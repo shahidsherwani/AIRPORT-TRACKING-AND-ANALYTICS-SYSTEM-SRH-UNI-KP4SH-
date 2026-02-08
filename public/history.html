@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight History - Airport Tracking System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📜 Flight History</h1>
+            <p class="subtitle">Historical Flight Data & Analytics</p>
+        </header>
+
+        <main>
+            <div class="dashboard-header">
+                <a href="/" class="btn">← Back to Home</a>
+                <button onclick="loadHistory()" class="btn">🔄 Refresh</button>
+            </div>
+
+            <div class="info-section">
+                <h2>Statistics (Last 7 Days)</h2>
+                <div class="architecture-info" id="stats">
+                    <div class="arch-item">
+                        <h4>Total Flights</h4>
+                        <p id="total-flights">-</p>
+                    </div>
+                    <div class="arch-item">
+                        <h4>On-Time %</h4>
+                        <p id="on-time-pct">-%</p>
+                    </div>
+                    <div class="arch-item">
+                        <h4>Avg Delay</h4>
+                        <p id="avg-delay">- min</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flights-table">
+                <h2>Recent Flights</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Flight Number</th>
+                            <th>Airline</th>
+                            <th>Date</th>
+                            <th>Departure</th>
+                            <th>Arrival</th>
+                            <th>Status</th>
+                            <th>Delay (min)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-data">
+                        <tr>
+                            <td colspan="7">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function loadHistory() {
+            try {
+                // Load statistics
+                const statsRes = await fetch('/api/history/statistics?period=week');
+                const stats = await statsRes.json();
+
+                if (stats.success) {
+                    document.getElementById('total-flights').textContent = stats.data.totalFlights;
+                    document.getElementById('on-time-pct').textContent = stats.data.onTimePercentage + '%';
+                    document.getElementById('avg-delay').textContent = Math.round(stats.data.avgDelay) + ' min';
+                }
+
+                // Load history
+                const historyRes = await fetch('/api/history/flights?limit=50');
+                const history = await historyRes.json();
+
+                const tbody = document.getElementById('history-data');
+                if (history.success && history.data.length > 0) {
+                    tbody.innerHTML = history.data.map(f => `
+                        <tr>
+                            <td>${f.flightNumber}</td>
+                            <td>${f.airline}</td>
+                            <td>${new Date(f.date).toLocaleDateString()}</td>
+                            <td>${f.departure}</td>
+                            <td>${f.arrival}</td>
+                            <td><span class="status-badge status-${f.status}">${f.status}</span></td>
+                            <td>${f.delayMinutes || 0}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="7">No historical data available. Run seed script to add sample data.</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading history:', error);
+                document.getElementById('history-data').innerHTML =
+                    '<tr><td colspan="7">Error loading data. Make sure the server is running.</td></tr>';
+            }
+        }
+
+        // Load on page load
+        loadHistory();
+    </script>
+</body>
+
+</html>
