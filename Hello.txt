@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-Hey , this is just testing and by smitha 
-another
-=======
-Hey , this is just testing and testing the fork 
-Hey , this is just testing
-Hello,  this is just testing from Harjot
->>>>>>> 19433dafcd67afd080cf729bb90d1a21af8a7c99
-This is by Smitha
