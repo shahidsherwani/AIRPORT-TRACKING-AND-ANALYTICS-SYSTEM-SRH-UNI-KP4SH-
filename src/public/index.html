@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport Tracking & Analytics System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .status {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-online {
+            background: #10b981;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✈️ Airport Tracking System</h1>
+            <p>Real-time Flight Monitoring & Safety Analytics</p>
+        </div>
+
+        <div class="grid">
+            <a href="/dashboard" class="card">
+                <div class="card-icon">📊</div>
+                <h2>Flight Monitor</h2>
+                <p>Real-time tracking of all flights with live positions and gate assignments</p>
+            </a>
+
+            <a href="/kpi" class="card">
+                <div class="card-icon">📈</div>
+                <h2>KPI Dashboard</h2>
+                <p>Performance metrics, on-time rates, and operational statistics</p>
+            </a>
+
+            <a href="/collision" class="card">
+                <div class="card-icon">⚠️</div>
+                <h2>Collision Detection</h2>
+                <p>Safety monitoring and proximity alerts between aircraft</p>
+            </a>
+
+            <a href="/altitude" class="card">
+                <div class="card-icon">📉</div>
+                <h2>Altitude Check</h2>
+                <p>Monitor aircraft altitude compliance in airport zones</p>
+            </a>
+
+            <a href="/passenger" class="card">
+                <div class="card-icon">🔍</div>
+                <h2>Passenger Info</h2>
+                <p>Search and track passenger flight information</p>
+            </a>
+
+            <a href="/history" class="card">
+                <div class="card-icon">📜</div>
+                <h2>Flight History</h2>
+                <p>Historical flight data analysis and trends</p>
+            </a>
+
+            <a href="/replay" class="card">
+                <div class="card-icon">🎬</div>
+                <h2>Flight Replay</h2>
+                <p>Replay and analyze past flight paths</p>
+            </a>
+
+            <a href="/health" class="card">
+                <div class="card-icon">💚</div>
+                <h2>System Health</h2>
+                <p>Check system status and database connections</p>
+            </a>
+        </div>
+
+        <div class="status">
+            <span class="status-indicator status-online"></span>
+            <strong>System Online</strong> - All services operational
+        </div>
+    </div>
+
+    <script>
+        // Check system health on load
+        fetch('/health')
+            .then(res => res.json())
+            .then(data => {
+                console.log('System Health:', data);
+            })
+            .catch(err => {
+                console.error('Health check failed:', err);
+            });
+    </script>
+</body>
+
+</html>

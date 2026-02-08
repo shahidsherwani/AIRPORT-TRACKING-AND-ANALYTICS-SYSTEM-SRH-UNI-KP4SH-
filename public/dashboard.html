@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Dashboard - Airport Tracking System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Live Flight Dashboard</h1>
+            <p class="subtitle">Real-time Flight Monitoring</p>
+        </header>
+
+        <main>
+            <div class="dashboard-header">
+                <a href="/" class="btn">← Back to Home</a>
+                <button onclick="refreshData()" class="btn">🔄 Refresh</button>
+            </div>
+
+            <div class="stats-grid" id="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-flights">-</div>
+                    <div class="stat-label">Total Flights</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="in-flight">-</div>
+                    <div class="stat-label">In Flight</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="on-ground">-</div>
+                    <div class="stat-label">On Ground</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="available-gates">-</div>
+                    <div class="stat-label">Available Gates</div>
+                </div>
+            </div>
+
+            <div class="flights-table">
+                <h2>Live Flights</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Callsign</th>
+                            <th>Altitude (ft)</th>
+                            <th>Speed (kts)</th>
+                            <th>Gate</th>
+                            <th>Terminal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="flights-data">
+                        <tr>
+                            <td colspan="6">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function loadDashboard() {
+            try {
+                // Load summary
+                const summaryRes = await fetch('/api/flights/summary');
+                const summary = await summaryRes.json();
+
+                if (summary.success) {
+                    document.getElementById('total-flights').textContent = summary.data.totalFlights;
+                    document.getElementById('in-flight').textContent = summary.data.inFlight;
+                    document.getElementById('on-ground').textContent = summary.data.onGround;
+                    document.getElementById('available-gates').textContent = summary.data.availableGates;
+                }
+
+                // Load flights
+                const flightsRes = await fetch('/api/flights/live');
+                const flights = await flightsRes.json();
+
+                const tbody = document.getElementById('flights-data');
+                if (flights.success && flights.data.length > 0) {
+                    tbody.innerHTML = flights.data.map(f => `
+                        <tr>
+                            <td>${f.callsign}</td>
+                            <td>${Math.round(f.position?.altitude || 0)}</td>
+                            <td>${Math.round(f.position?.velocity || 0)}</td>
+                            <td>${f.gate || '-'}</td>
+                            <td>${f.terminal || '-'}</td>
+                            <td><span class="status-badge status-${f.status}">${f.status}</span></td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="6">No live flights available. Run seed script to add sample data.</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                document.getElementById('flights-data').innerHTML =
+                    '<tr><td colspan="6">Error loading data. Make sure the server is running.</td></tr>';
+            }
+        }
+
+        function refreshData() {
+            loadDashboard();
+        }
+
+        // Load on page load
+        loadDashboard();
+
+        // Auto-refresh every 10 seconds
+        setInterval(loadDashboard, 10000);
+    </script>
+</body>
+
+</html>
