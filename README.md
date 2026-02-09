@@ -25,7 +25,7 @@ This project demonstrates how live air traffic data can make airports safer and 
 |------|----------|--------|
 | **Sameer Kulkarni** | Live Flight & Gate Monitoring | [@Sameer-kulkarni-sk](https://github.com/Sameer-kulkarni-sk) |
 | **Harjot Singh** | Airport KPIs | - |
-| **Shambhavi Pillai** | Collision Detection | - |
+| **Shambhavi Pillai** | Collision Detection | [@rshambhavipillai](https://github.com/rshambhavipillai) | 
 | **Prajwal Vijaykumar** | Low-Altitude Detection | - |
 | **Kartheek Tatagari** | Passenger Information | - |
 | **Smitha Anoop** | Flight History | - |
