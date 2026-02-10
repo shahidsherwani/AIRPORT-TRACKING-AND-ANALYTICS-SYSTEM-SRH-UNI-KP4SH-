@@ -7,19 +7,19 @@
 [![Redis](https://img.shields.io/badge/Redis-7.0-red.svg)](https://redis.io/)
 [![Neo4j](https://img.shields.io/badge/Neo4j-5.0-blue.svg)](https://neo4j.com/)
 
-## 📖 Overview
+## Overview
 
 This project demonstrates how live air traffic data can make airports safer and more efficient. By combining real-time aircraft positions from **OpenSky Network** and **AviationStack** with three specialized databases (**MongoDB**, **Redis**, and **Neo4j**), we've built a comprehensive dashboard that:
 
-- 🛫 Monitors live flights and gate status
-- ⚠️ Detects potential mid-air collisions
-- 📉 Identifies low-altitude risks
-- 📊 Tracks airport performance KPIs
-- 👥 Provides passenger flight information
-- 📜 Analyzes historical flight data
-- 🔄 Replays flight routes for investigation
+-  Monitors live flights and gate status
+-  Detects potential mid-air collisions
+-  Identifies low-altitude risks
+-  Tracks airport performance KPIs
+-  Provides passenger flight information
+-  Analyzes historical flight data
+-  Replays flight routes for investigation
 
-## 👥 Team Members
+##  Team Members
 
 | Name | Use Case | GitHub |
 |------|----------|--------|
@@ -31,7 +31,7 @@ This project demonstrates how live air traffic data can make airports safer and 
 | **Smitha Anoop** | Flight History | - |
 | **Shahid Sherwani** | Flight Replay | - |
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -58,7 +58,7 @@ This project demonstrates how live air traffic data can make airports safer and 
          └───────────────────────────────┘
 ```
 
-## 🗄️ Database Strategy
+##  Database Strategy
 
 ### Why Three Databases?
 
@@ -68,7 +68,7 @@ This project demonstrates how live air traffic data can make airports safer and 
 | **Neo4j** | Graph relationships | Flight-gate assignments, airport zones |
 | **MongoDB** | Historical data | Flight schedules, passenger info, telemetry |
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -112,7 +112,7 @@ npm start
 - **Flight Replay**: http://localhost:8080/replay
 - **Neo4j Browser**: http://localhost:7474 (user: neo4j, pass: airport123)
 
-## 📚 Documentation
+##  Documentation
 
 For detailed implementation guide, see [PROJECT_GUIDE.md](PROJECT_GUIDE.md)
 
@@ -213,7 +213,7 @@ npm run data-ingestion
 npm test
 ```
 
-## 📊 API Endpoints
+##  API Endpoints
 
 ### Flight Monitoring
 - `GET /api/flights/live` - Get all live flights
@@ -250,7 +250,7 @@ Key settings:
 - `COLLISION_SAFE_DISTANCE_KM` - Minimum safe distance (default: 5 km)
 - `MIN_SAFE_ALTITUDE_FT` - Minimum safe altitude (default: 1000 ft)
 
-## 🧪 Testing
+##  Testing
 
 ### Manual Testing Checklist
 
@@ -270,14 +270,14 @@ The system includes seed data for testing:
 - Historical flight records
 - Sample telemetry data
 
-## 📈 Performance
+##  Performance
 
 - **Real-time updates**: < 1 second latency
 - **API response time**: < 100ms average
 - **Database queries**: Optimized with indexes
 - **Concurrent users**: Supports 100+ simultaneous connections
 
-## 🔒 Security
+##  Security
 
 - Environment variables for sensitive data
 - CORS protection
@@ -285,7 +285,7 @@ The system includes seed data for testing:
 - Rate limiting on API endpoints
 - Secure database connections
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -308,20 +308,19 @@ FLIGHT_DATA_REFRESH_INTERVAL=30
 # Press F12 → Console tab
 ```
 
-## 📝 License
+##  License
 
 This project is created for educational purposes at SRH University.
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **OpenSky Network** - Free flight tracking data
 - **AviationStack** - Comprehensive aviation API
 - **SRH University** - Project supervision and support
 
-## 📞 Contact
+##  Contact
 
 For questions or support, please contact:
-- **Project Lead**: Sameer Kulkarni
 - **Repository**: [GitHub](https://github.com/Sameer-kulkarni-sk/AIRPORT-TRACKING-AND-ANALYTICS-SYSTEM-SRH-UNI-KP4SH-)
 
 ---
